@@ -11,4 +11,4 @@ jobs:
     steps:
       - run: gh pr comment ${{ github.event.pull_request.html_url }} --body "welcome to the project! Thank you for your contribution. 🎉"
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
