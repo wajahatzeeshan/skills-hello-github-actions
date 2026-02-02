@@ -5,5 +5,17 @@ on:
 
 jobs:
   welcome:
-    name: Post Welcome Comment
     runs-on: ubuntu-latest
+    steps:
+      - name: Debug environment
+        run: |
+          echo "PR_URL is set to: $PR_URL"
+          if [ -z "$GH_TOKEN" ]; then
+            echo "GH_TOKEN is NOT set!"
+          else
+            echo "GH_TOKEN is set ✅"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+
