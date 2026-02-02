@@ -6,16 +6,9 @@ permissions:
   pull-requests: write
 jobs:
   welcome:
+    name: Welcome new contributors
     runs-on: ubuntu-latest
     steps:
-      - name: Post welcome comment
-        uses: peter-evans/welcome-comment@v2
-        with:
-          message: |
-            Hi @${{ github.event.pull_request.user.login }}! 👋
-            
-            Thank you for your contribution to the project. We appreciate your effort and time!
-            
-            A maintainer will review your pull request soon. In the meantime, feel free to check out our contributing guidelines and documentation.
-            
-            If you have any questions, don't hesitate to ask. Welcome aboard! 🚀
+      - run: gh pr comment ${{ github.event.pull_request.number }} --body "welcome to the project! Thank you for your contribution. 🎉"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
