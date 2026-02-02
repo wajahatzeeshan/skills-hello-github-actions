@@ -6,10 +6,16 @@ permissions:
   pull-requests: write
 jobs:
   welcome:
-    name: Post welcome comms
     runs-on: ubuntu-latest
     steps:
-      - run: gh pr comment "$PR_URL" --body "Welcome to the repository!"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_URL: ${{ github.event.pull_request.html_url }}
+      - name: Post welcome comment
+        uses: peter-evans/welcome-comment@v2
+        with:
+          message: |
+            Hi @${{ github.event.pull_request.user.login }}! 👋
+            
+            Thank you for your contribution to the project. We appreciate your effort and time!
+            
+            A maintainer will review your pull request soon. In the meantime, feel free to check out our contributing guidelines and documentation.
+            
+            If you have any questions, don't hesitate to ask. Welcome aboard! 🚀
