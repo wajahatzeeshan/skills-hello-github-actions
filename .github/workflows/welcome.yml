@@ -1,21 +1,16 @@
 name: Post welcome comment
+
 on:
   pull_request:
-    types: [opened]
+    types:
+      - opened
 
 jobs:
   welcome:
     runs-on: ubuntu-latest
     steps:
-      - name: Debug environment
-        run: |
-          echo "PR_URL is set to: $PR_URL"
-          if [ -z "$GH_TOKEN" ]; then
-            echo "GH_TOKEN is NOT set!"
-          else
-            echo "GH_TOKEN is set ✅"
-          fi
+      - name: Post welcome comment
+        run: gh pr comment "$PR_URL" --body "Welcome to the repository!"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ github.event.pull_request.html_url }}
-
