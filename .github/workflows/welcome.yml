@@ -11,15 +11,6 @@ jobs:
   welcome:
     runs-on: ubuntu-latest
     steps:
-      - name: Delete previous welcome comments
-        run: |
-          gh pr comment list "$PR_URL" --json id,body \
-            | jq -r '.[] | select(.body | contains("Welcome to the repository")) | .id' \
-            | xargs -r -I {} gh pr comment delete "$PR_URL" {}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_URL: ${{ github.event.pull_request.html_url }}
-
       - name: Post welcome comment
         run: gh pr comment "$PR_URL" --body "Welcome to the repository! 🎉"
         env:
