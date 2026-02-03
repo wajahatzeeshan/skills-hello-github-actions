@@ -1,9 +1,13 @@
 name: Post welcome comment
+
 on:
   pull_request:
-    types: [opened]
+    types: 
+      - opened
+
 permissions:
   pull-requests: write
+
 jobs:
   welcome:
     name: Welcome new contributors
@@ -11,5 +15,5 @@ jobs:
     steps:
       - run: gh pr comment "$PR_URL" --body "Welcome to the project! Thank you for your contribution. 🎉"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ github.event.pull_request.html_url }}
