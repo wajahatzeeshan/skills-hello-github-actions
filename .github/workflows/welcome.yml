@@ -4,22 +4,14 @@ on:
     types: [opened]
 permissions:
   pull-requests: write
-
 jobs:
   welcome:
+    name: Welcome new contributors
     runs-on: ubuntu-latest
     steps:
       - name: Post welcome comment
-        uses: actions/github-script@v6
+        uses: skills/exercise-toolkit/actions/welcome-comment@v0.6.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const pr = context.payload.pull_request;
-            if (pr) {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: pr.number,
-                body: "Thanks for the PR — welcome!"
-              });
-            }
+          welcome-message-file: exercise-toolkit/markdown-templates/welcome-comments/new-contributor-welcome.md
+          new-contributor-label: new-contributor
