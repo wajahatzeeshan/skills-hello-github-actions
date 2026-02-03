@@ -30,11 +30,11 @@ jobs:
     steps:
       # 1️⃣ Checkout your repo
       - name: Checkout main repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       # 2️⃣ Checkout the template repo (must exist for Markdown templates)
       - name: Checkout template repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           repository: skills/exercise-toolkit
           path: exercise-toolkit
@@ -164,10 +164,10 @@ jobs:
       ISSUE_URL: ${{ needs.find_exercise.outputs.issue-url }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Get response templates
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           repository: skills/exercise-toolkit
           path: exercise-toolkit
