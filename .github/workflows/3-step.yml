@@ -113,15 +113,15 @@ jobs:
             step_number: 3
             results_table:
               - description: "Workflow file syntax validation"
-                passed: ${{ steps.actionlint-check.outcome == 'success' }}
+                passed: "${{ steps.actionlint-check.outcome == 'success' }}"
               - description: "Added steps section to welcome job"
-                passed: ${{ steps.check-steps-section.outcome == 'success' }}
+                passed: "${{ steps.check-steps-section.outcome == 'success' }}"
               - description: "Added gh pr comment command"
-                passed: ${{ steps.check-gh-pr-comment.outcome == 'success' }}
+                passed: "${{ steps.check-gh-pr-comment.outcome == 'success' }}"
               - description: "Set GITHUB_TOKEN environment variable"
-                passed: ${{ steps.check-github-token.outcome == 'success' }}
+                passed: "${{ steps.check-github-token.outcome == 'success' }}"
               - description: "Set PR_URL environment variable"
-                passed: ${{ steps.check-pr-url.outcome == 'success' }}
+                passed: "${{ steps.check-pr-url.outcome == 'success' }}"
 
       # 1️⃣1️⃣ Create comment - step results
       - name: Create comment - step results
