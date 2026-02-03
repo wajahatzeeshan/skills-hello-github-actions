@@ -29,15 +29,14 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Get response templates
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: skills/exercise-toolkit
           path: exercise-toolkit
-          ref: v0.6.0
-
+          ref: v0.7.3
       - name: Update comment - checking work
         run: |
           gh issue comment "$ISSUE_URL" \
@@ -150,7 +149,7 @@ jobs:
         with:
           repository: skills/exercise-toolkit
           path: exercise-toolkit
-          ref: v0.6.0
+          ref: v0.7.3
 
       - name: Create comment - add step content
         run: |
