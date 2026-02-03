@@ -1,0 +1,46 @@
+name: Post welcome comments dynamically
+
+on:
+  pull_request:
+    types: [opened]
+
+permissions:
+  issues: write   # safer than pull-requests: write for posting comments
+
+jobs:
+  welcome:
+    name: Welcome new contributors
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Loop through step files and post comments
+        run: |
+          # List all step files in order
+          STEPS=(
+            ".github/steps/1-step.md"
+            ".github/steps/2-step.md"
+            ".github/steps/3-step.md"
+            ".github/steps/4-step.md"
+            ".github/steps/5-step.md"
+          )
+
+          for i in "${!STEPS[@]}"; do
+            STEP_FILE="${STEPS[$i]}"
+            STEP_NUM=$((i + 1))
+            echo "Processing Step $STEP_NUM -> $STEP_FILE"
+
+            # Build comment using action-text-variables
+            UPDATED_TEXT=$(gh workflow run skills/action-text-variables@v3 \
+              --template-file "$STEP_FILE" \
+              --template-vars "step_number=$STEP_NUM" \
+              --json output \
+              | jq -r '.updated_text')
+
+            # Post the comment to the PR
+            gh issue comment "$PR_URL" --body "$UPDATED_TEXT"
+          done
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
